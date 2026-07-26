@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07124f" />
+  <meta name="description" content="Obtén tu página web de bingo con panel de administración, transmisión en vivo y soporte personalizado." />
+  <title>Tu página web de bingo | Goldenpro.Ven</title>
+  <style>
+    :root {
+      --navy:#050b35;
+      --blue:#0b1a72;
+      --purple:#3411a7;
+      --yellow:#ffd100;
+      --orange:#ff9f00;
+      --white:#ffffff;
+      --soft:#eef1ff;
+      --green:#25d366;
+      --card:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.16);
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--white);
+      background:
+        radial-gradient(circle at 18% 14%, rgba(68,45,227,.42), transparent 28%),
+        radial-gradient(circle at 86% 32%, rgba(121,39,203,.24), transparent 24%),
+        linear-gradient(145deg, #020826 0%, #07104e 48%, #18045f 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);
+      background-size:46px 46px;
+      opacity:.08;
+      z-index:-1;
+    }
+
+    a { color:inherit; text-decoration:none; }
+    button, input { font:inherit; }
+    .container { width:min(1160px, calc(100% - 32px)); margin-inline:auto; }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(16px);
+      background:rgba(4,9,44,.78);
+      border-bottom:1px solid var(--line);
+    }
+    .nav { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:.2px; }
+    .brand-mark {
+      width:42px; height:42px; border-radius:12px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--yellow),var(--orange));
+      color:#07104e; font-size:23px;
+      box-shadow:0 10px 30px rgba(255,190,0,.24);
+    }
+    .nav-cta {
+      padding:12px 18px; border-radius:999px;
+      background:var(--green); color:#062c16; font-weight:900;
+      box-shadow:0 10px 28px rgba(37,211,102,.28);
+    }
+
+    .hero { padding:72px 0 46px; }
+    .hero-grid { display:grid; grid-template-columns:1.02fr .98fr; gap:48px; align-items:center; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 13px; border:1px solid rgba(255,209,0,.36); border-radius:999px;
+      background:rgba(255,209,0,.08); color:#ffe96a; font-weight:800; font-size:.92rem;
+    }
+    h1 { font-size:clamp(2.65rem,6vw,5.25rem); line-height:.95; margin:20px 0 20px; letter-spacing:-.055em; }
+    h1 span { color:var(--yellow); text-shadow:0 0 28px rgba(255,209,0,.28); }
+    .hero-copy { max-width:650px; color:#dfe4ff; font-size:clamp(1rem,1.7vw,1.2rem); line-height:1.7; }
+    .hero-points { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:28px 0; }
+    .hero-point {
+      display:flex; gap:10px; align-items:flex-start; padding:13px 14px;
+      border:1px solid var(--line); border-radius:16px; background:var(--card);
+    }
+    .check { color:var(--yellow); font-weight:900; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+    .btn {
+      border:0; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px;
+      min-height:54px; padding:0 22px; border-radius:14px; font-weight:900; transition:.2s ease;
+    }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { background:linear-gradient(135deg,var(--yellow),var(--orange)); color:#15102b; box-shadow:0 16px 36px rgba(255,177,0,.26); }
+    .btn-ghost { border:1px solid var(--line); color:white; background:rgba(255,255,255,.05); }
+
+    .poster-wrap { position:relative; }
+    .poster-wrap::before {
+      content:""; position:absolute; inset:7% -4% -6% 9%; border-radius:38px;
+      background:linear-gradient(135deg,rgba(255,209,0,.26),rgba(65,30,213,.25)); filter:blur(28px); z-index:-1;
+    }
+    .poster {
+      width:100%; display:block; border-radius:30px; border:1px solid rgba(255,255,255,.18); box-shadow:var(--shadow);
+    }
+
+    .trustbar { padding:16px 0 54px; }
+    .trust-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .trust-item { text-align:center; padding:18px 12px; border:1px solid var(--line); background:rgba(255,255,255,.05); border-radius:18px; }
+    .trust-item b { display:block; margin-bottom:4px; color:var(--yellow); }
+    .trust-item span { color:#dfe4ff; font-size:.94rem; }
+
+    section { padding:76px 0; }
+    .section-head { text-align:center; max-width:780px; margin:0 auto 34px; }
+    .section-head h2 { font-size:clamp(2rem,4vw,3.3rem); margin:0 0 12px; letter-spacing:-.035em; }
+    .section-head p { color:#d8deff; line-height:1.7; margin:0; }
+
+    .video-shell {
+      max-width:980px; margin:auto; padding:10px; border-radius:28px;
+      background:linear-gradient(135deg,rgba(255,209,0,.72),rgba(255,255,255,.12),rgba(110,45,255,.65));
+      box-shadow:var(--shadow);
+    }
+    .video-frame { position:relative; aspect-ratio:16/9; overflow:hidden; border-radius:20px; background:#000; }
+    .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .feature { padding:26px; border:1px solid var(--line); background:rgba(255,255,255,.06); border-radius:22px; }
+    .feature-icon { font-size:2rem; margin-bottom:14px; }
+    .feature h3 { margin:0 0 8px; font-size:1.2rem; }
+    .feature p { margin:0; color:#dce1ff; line-height:1.6; }
+
+    .pricing-section {
+      position:relative;
+      background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.055));
+      border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    }
+    .name-box {
+      max-width:680px; margin:0 auto 26px; padding:20px;
+      border:1px solid rgba(255,209,0,.3); border-radius:20px; background:rgba(4,9,44,.64);
+    }
+    .name-box label { display:block; margin-bottom:9px; font-weight:850; }
+    .name-box input {
+      width:100%; min-height:54px; border:1px solid rgba(255,255,255,.2); border-radius:14px;
+      background:rgba(255,255,255,.08); color:white; padding:0 16px; outline:none;
+    }
+    .name-box input:focus { border-color:var(--yellow); box-shadow:0 0 0 4px rgba(255,209,0,.11); }
+    .name-box small { display:block; color:#cfd5ff; margin-top:8px; }
+
+    .pricing-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; max-width:940px; margin:auto; }
+    .price-card {
+      position:relative; padding:30px; border-radius:26px; border:1px solid var(--line);
+      background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.045));
+      box-shadow:0 18px 48px rgba(0,0,0,.22);
+    }
+    .price-card.highlight { border-color:rgba(255,209,0,.68); box-shadow:0 20px 60px rgba(255,187,0,.13); }
+    .tag { position:absolute; top:16px; right:16px; background:var(--yellow); color:#130d2e; font-weight:950; border-radius:999px; padding:7px 11px; font-size:.8rem; }
+    .price-card h3 { font-size:1.35rem; margin:0 0 10px; }
+    .price { font-weight:950; color:var(--yellow); font-size:clamp(2.3rem,5vw,4.25rem); line-height:1; letter-spacing:-.045em; margin:14px 0 8px; }
+    .price-note { color:#e0e4ff; min-height:52px; }
+    .price-list { list-style:none; padding:0; margin:22px 0; display:grid; gap:10px; color:#eef1ff; }
+    .price-list li::before { content:"✓"; color:var(--yellow); font-weight:900; margin-right:10px; }
+    .pay-btn { width:100%; background:var(--green); color:#062c16; }
+
+    .final-cta { text-align:center; padding-bottom:110px; }
+    .final-card {
+      padding:46px 24px; border-radius:28px; border:1px solid rgba(255,209,0,.4);
+      background:radial-gradient(circle at 50% 0%,rgba(255,209,0,.14),transparent 55%),rgba(255,255,255,.055);
+    }
+    .final-card h2 { margin:0 0 12px; font-size:clamp(2rem,4vw,3.6rem); }
+    .final-card p { color:#dbe1ff; margin:0 auto 24px; max-width:700px; line-height:1.7; }
+
+    footer { border-top:1px solid var(--line); padding:26px 0 92px; color:#bfc7f5; text-align:center; font-size:.9rem; }
+    .floating-wa {
+      position:fixed; right:20px; bottom:20px; z-index:60; width:62px; height:62px; border-radius:50%;
+      display:grid; place-items:center; background:var(--green); color:white; font-size:30px;
+      box-shadow:0 16px 36px rgba(0,0,0,.35); border:3px solid rgba(255,255,255,.85);
+    }
+
+    .toast {
+      position:fixed; left:50%; bottom:24px; transform:translate(-50%,120px); opacity:0;
+      background:#fff; color:#161126; padding:12px 18px; border-radius:12px; font-weight:800;
+      box-shadow:0 14px 38px rgba(0,0,0,.32); z-index:100; transition:.25s ease;
+    }
+    .toast.show { transform:translate(-50%,0); opacity:1; }
+
+
+
+    .scarcity-badge {
+      display:inline-flex; align-items:center; gap:9px; margin-top:16px;
+      padding:10px 15px; border-radius:999px; color:#fff7ce; font-weight:950;
+      border:1px solid rgba(255,209,0,.58); background:rgba(255,93,0,.16);
+      box-shadow:0 0 28px rgba(255,164,0,.12); animation:pulseScarcity 2s infinite;
+    }
+    @keyframes pulseScarcity { 0%,100%{transform:scale(1)} 50%{transform:scale(1.025)} }
+
+    .limited-strip {
+      width:min(940px,calc(100% - 32px)); margin:0 auto 20px; padding:18px 22px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+      border-radius:20px; border:1px solid rgba(255,209,0,.55);
+      background:linear-gradient(110deg,rgba(255,209,0,.15),rgba(255,100,0,.12));
+      box-shadow:0 18px 50px rgba(0,0,0,.18);
+    }
+    .limited-strip strong { color:var(--yellow); font-size:1.15rem; }
+    .limited-dots { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+    .limited-dots span { width:13px; height:13px; border-radius:50%; background:var(--yellow); box-shadow:0 0 14px rgba(255,209,0,.55); }
+
+    .buyer-form {
+      max-width:940px; margin:0 auto 26px; padding:24px;
+      border:1px solid rgba(255,209,0,.30); border-radius:22px; background:rgba(4,9,44,.68);
+    }
+    .form-title { margin:0 0 6px; font-size:1.25rem; }
+    .form-intro { margin:0 0 18px; color:#cfd5ff; line-height:1.55; }
+    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+    .field label { display:block; margin-bottom:8px; font-weight:850; }
+    .field input {
+      width:100%; min-height:54px; border:1px solid rgba(255,255,255,.2); border-radius:14px;
+      background:rgba(255,255,255,.08); color:white; padding:0 16px; outline:none;
+    }
+    .field input:focus { border-color:var(--yellow); box-shadow:0 0 0 4px rgba(255,209,0,.11); }
+    .field input.invalid { border-color:#ff7979; box-shadow:0 0 0 4px rgba(255,70,70,.10); }
+
+    .acceptance-box {
+      max-width:940px; margin:24px auto 0; padding:22px;
+      border-radius:20px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.055);
+    }
+    .acceptance-box h3 { margin:0 0 12px; }
+    .check-row { display:flex; align-items:flex-start; gap:11px; padding:9px 0; color:#eef1ff; line-height:1.5; }
+    .check-row input { width:19px; height:19px; margin-top:2px; accent-color:var(--yellow); flex:0 0 auto; }
+    .terms-link { color:#ffe35b; text-decoration:underline; font-weight:850; cursor:pointer; background:none; border:0; padding:0; }
+    .legal-note { color:#bcc5f2; font-size:.88rem; line-height:1.55; margin:12px 0 0; }
+    .document-note { margin-top:14px; padding:12px 14px; border-left:4px solid var(--yellow); background:rgba(255,209,0,.08); color:#f7f1cb; border-radius:8px; }
+
+    .faq-list { max-width:900px; margin:auto; display:grid; gap:14px; }
+    .faq-item { border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.055); overflow:hidden; }
+    .faq-item summary { cursor:pointer; list-style:none; padding:20px 22px; font-weight:900; display:flex; justify-content:space-between; gap:16px; }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after { content:"+"; color:var(--yellow); font-size:1.4rem; }
+    .faq-item[open] summary::after { content:"−"; }
+    .faq-answer { padding:0 22px 21px; color:#dce1ff; line-height:1.7; }
+
+    .terms-summary {
+      max-width:940px; margin:28px auto 0; padding:24px; border-radius:22px;
+      border:1px solid rgba(255,209,0,.28); background:rgba(2,8,38,.62);
+    }
+    .terms-summary h3 { margin:0 0 10px; }
+    .terms-summary p { color:#dce1ff; line-height:1.65; }
+    .terms-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:15px; }
+    .small-btn { min-height:44px; padding:0 16px; border-radius:12px; }
+
+    .modal-backdrop {
+      position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center;
+      padding:20px; background:rgba(0,0,0,.72); backdrop-filter:blur(8px);
+    }
+    .modal-backdrop.open { display:flex; }
+    .terms-modal {
+      width:min(850px,100%); max-height:88vh; overflow:auto; border-radius:24px;
+      background:#07104a; border:1px solid rgba(255,255,255,.22); box-shadow:0 28px 90px rgba(0,0,0,.55);
+    }
+    .modal-head { position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; gap:18px; padding:20px 22px; background:#07104a; border-bottom:1px solid var(--line); }
+    .modal-head h2 { margin:0; font-size:1.35rem; }
+    .modal-close { border:0; width:40px; height:40px; border-radius:12px; cursor:pointer; background:rgba(255,255,255,.10); color:white; font-size:1.4rem; }
+    .modal-body { padding:22px; color:#e6e9ff; line-height:1.65; }
+    .modal-body h3 { color:var(--yellow); margin:22px 0 7px; }
+    .modal-body h3:first-child { margin-top:0; }
+    .modal-body ul { padding-left:21px; }
+    .modal-foot { padding:18px 22px 22px; display:flex; flex-wrap:wrap; gap:10px; border-top:1px solid var(--line); }
+    .purchase-modal { width:min(760px,100%); overflow:hidden; display:flex; flex-direction:column; }
+    .purchase-modal .modal-body { overflow:auto; }
+    .purchase-modal .modal-foot { flex:0 0 auto; background:#07104a; box-shadow:0 -12px 28px rgba(0,0,0,.20); }
+    .plan-confirm-summary {
+      padding:17px 18px; margin-bottom:18px; border-radius:16px;
+      border:1px solid rgba(255,209,0,.38); background:rgba(255,209,0,.09);
+    }
+    .plan-confirm-summary strong { color:var(--yellow); }
+    .confirm-title { margin:0 0 10px; color:white; }
+    .confirm-help { margin:0 0 14px; color:#cbd2ff; }
+    .confirm-warning {
+      margin:14px 0 0; padding:12px 14px; border-radius:12px;
+      border-left:4px solid #ffb400; background:rgba(255,157,0,.09); color:#fff1c4;
+    }
+    .gift-item {
+      padding:12px 13px; border-radius:12px; background:rgba(255,209,0,.10);
+      border:1px solid rgba(255,209,0,.30); color:#fff5b8; font-weight:800;
+    }
+    .gift-item::before { content:"🎁" !important; margin-right:9px !important; }
+    .modal-confirm-btn { flex:1 1 300px; }
+    .signature-box {
+      margin-top:18px; padding:16px; border-radius:16px; border:1px solid rgba(255,209,0,.35);
+      background:rgba(255,255,255,.055);
+    }
+    .signature-box h3 { margin:0 0 5px; color:var(--yellow); }
+    .signature-box p { margin:0 0 12px; color:#d5dcff; font-size:.92rem; line-height:1.5; }
+    .signature-name { margin-bottom:10px; font-weight:850; color:#fff; }
+    .signature-canvas-wrap {
+      position:relative; border-radius:12px; overflow:hidden; background:#fff; border:2px dashed #9ca6bc;
+    }
+    #firmaCanvas { display:block; width:100%; height:150px; touch-action:none; cursor:crosshair; }
+    .signature-placeholder {
+      position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; color:#7a8295;
+      font-weight:750; text-align:center; padding:16px;
+    }
+    .signature-placeholder.hidden { display:none; }
+    .signature-actions { display:flex; justify-content:flex-end; margin-top:9px; }
+    .signature-clear {
+      border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff;
+      border-radius:10px; padding:8px 12px; cursor:pointer; font-weight:800;
+    }
+    .responsibility-alert {
+      margin:12px 0; padding:13px 14px; border-radius:12px; border-left:5px solid #ffb020;
+      background:rgba(255,142,0,.11); color:#fff3d0; line-height:1.55;
+    }
+
+    @media (max-width:620px) {
+      .form-grid { grid-template-columns:1fr; }
+      .limited-strip { align-items:flex-start; }
+      .limited-dots { max-width:92px; }
+      .buyer-form, .acceptance-box, .terms-summary { padding:19px 16px; }
+    }
+
+    @media (max-width:900px) {
+      .hero-grid { grid-template-columns:1fr; }
+      .poster-wrap { max-width:660px; margin:auto; }
+      .features { grid-template-columns:repeat(2,1fr); }
+      .trust-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:620px) {
+      .container { width:min(100% - 22px,1160px); }
+      .nav { min-height:64px; }
+      .brand span:last-child { font-size:.92rem; }
+      .nav-cta { padding:10px 13px; font-size:.84rem; }
+      .hero { padding-top:48px; }
+      .hero-points, .features, .pricing-grid { grid-template-columns:1fr; }
+      .hero-actions .btn { width:100%; }
+      section { padding:58px 0; }
+      .price-card { padding:24px 20px; }
+      .floating-wa { width:56px; height:56px; right:14px; bottom:14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark">75</span>
+        <span>Tu Bingo Web</span>
+      </a>
+      <a class="nav-cta" href="#precios">Ver planes</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">🚀 Convierte tu bingo en un negocio digital</span>
+          <div class="scarcity-badge">🔥 Oferta limitada: solo 10 cupos disponibles</div>
+          <h1>Tu página web de bingo <span>lista para vender</span></h1>
+          <p class="hero-copy">Recibe solicitudes, organiza participantes, transmite en vivo y administra tus sorteos desde una página profesional adaptada a teléfonos, tabletas y computadoras.</p>
+          <div class="hero-points">
+            <div class="hero-point"><span class="check">✓</span><span>Panel de administración</span></div>
+            <div class="hero-point"><span class="check">✓</span><span>Usuarios ilimitados</span></div>
+            <div class="hero-point"><span class="check">✓</span><span>Transmisión en vivo</span></div>
+            <div class="hero-point"><span class="check">✓</span><span>Soporte personalizado</span></div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#precios">Quiero mi página</a>
+            <a class="btn btn-ghost" href="#demostracion">Ver demostración</a>
+          </div>
+        </div>
+        <div class="poster-wrap">
+          <img class="poster" src="promocion-bingo.png" alt="Promoción de página web de bingo" />
+        </div>
+      </div>
+    </section>
+
+    <div class="container trustbar">
+      <div class="trust-grid">
+        <div class="trust-item"><b>100% adaptable</b><span>Teléfono, tableta y PC</span></div>
+        <div class="trust-item"><b>Panel completo</b><span>Control desde un solo lugar</span></div>
+        <div class="trust-item"><b>Imagen profesional</b><span>Diseño moderno para vender</span></div>
+        <div class="trust-item"><b>Soporte directo</b><span>Acompañamiento personalizado</span></div>
+      </div>
+    </div>
+
+    <section id="demostracion">
+      <div class="container">
+        <div class="section-head">
+          <h2>Mira cómo funciona</h2>
+          <p>Conoce la experiencia que tendrán tus compradores y visualiza el sistema antes de elegir tu forma de pago.</p>
+        </div>
+        <div class="video-shell">
+          <div class="video-frame">
+            <iframe src="https://streamable.com/e/kb11r5" title="Demostración del sistema de bingo" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Todo lo que necesitas para organizar tu bingo</h2>
+          <p>Una solución pensada para presentar tu evento de forma profesional y facilitar la gestión de participantes.</p>
+        </div>
+        <div class="features">
+          <article class="feature"><div class="feature-icon">🎟️</div><h3>Sistema de cartones</h3><p>Organiza la selección y el registro de cartones desde una experiencia clara para el usuario.</p></article>
+          <article class="feature"><div class="feature-icon">🧑‍💻</div><h3>Panel administrativo</h3><p>Gestiona solicitudes, aprobaciones, participantes y configuraciones desde un solo lugar.</p></article>
+          <article class="feature"><div class="feature-icon">📺</div><h3>Transmisión en vivo</h3><p>Integra tu transmisión para que los jugadores sigan el sorteo desde la misma página.</p></article>
+          <article class="feature"><div class="feature-icon">🏆</div><h3>Ganadores e historial</h3><p>Muestra los resultados y conserva un historial visible para tus participantes.</p></article>
+          <article class="feature"><div class="feature-icon">📱</div><h3>Diseño adaptable</h3><p>La página se visualiza correctamente en teléfonos, tabletas y computadoras.</p></article>
+          <article class="feature"><div class="feature-icon">🎧</div><h3>Soporte personalizado</h3><p>Recibe orientación para poner en funcionamiento tu página y aprovechar sus herramientas.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section" id="precios">
+      <div class="container">
+        <div class="section-head">
+          <h2>Elige cómo quieres pagar</h2>
+          <p>Completa tus datos, elige un plan, acepta las condiciones y firma electrónicamente antes del pago. Luego se generará tu constancia y se abrirá WhatsApp.</p>
+        </div>
+
+        <div class="limited-strip" aria-label="Disponibilidad limitada">
+          <div><strong>🔥 Solo 10 cupos disponibles</strong><br><span>Reserva tu cupo eligiendo uno de los planes.</span></div>
+          <div class="limited-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="buyer-form" id="datos-comprador">
+          <h3 class="form-title">Datos para preparar tu constancia</h3>
+          <p class="form-intro">Completa tus datos y elige un plan. Se abrirá un modal con cinco confirmaciones y un espacio para dibujar tu firma electrónica antes del pago; luego se generará la constancia firmada y se abrirá WhatsApp.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="nombre">Nombre y apellido *</label>
+              <input id="nombre" type="text" autocomplete="name" placeholder="Ejemplo: María González" maxlength="100" required />
+            </div>
+            <div class="field">
+              <label for="documento">Cédula o RIF *</label>
+              <input id="documento" type="text" inputmode="text" placeholder="Ejemplo: V-12.345.678" maxlength="30" required />
+            </div>
+            <div class="field">
+              <label for="telefono">WhatsApp del comprador *</label>
+              <input id="telefono" type="tel" autocomplete="tel" placeholder="Ejemplo: 0412-1234567" maxlength="25" required />
+            </div>
+            <div class="field">
+              <label for="correo">Correo electrónico *</label>
+              <input id="correo" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card highlight">
+            <span class="tag">Plan financiado</span>
+            <h3>Inicial + 12 cuotas quincenales</h3>
+            <div class="price">$150</div>
+            <p class="price-note"><strong>Inicial de $150 a BCV</strong><br>+ 12 cuotas <strong>quincenales</strong> de <strong>$33.33 aprox.</strong> a BCV.<br>Total financiado: <strong>$550</strong>.<br>La última cuota se ajusta para completar el monto total.</p>
+            <ul class="price-list">
+              <li>Página web de bingo</li>
+              <li>Panel de administración</li>
+              <li>Diseño adaptable</li>
+              <li>Soporte personalizado</li>
+              <li class="gift-item">Obsequio: archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</li>
+            </ul>
+            <button class="btn pay-btn" type="button" onclick="seleccionarPlan('Plan financiado', 'Inicial de $150 a BCV + 12 cuotas quincenales de $33.33 aproximadamente a BCV; total financiado de $550, con ajuste de la última cuota')">Elegir plan financiado</button>
+          </article>
+
+          <article class="price-card">
+            <h3>Pago de contado</h3>
+            <div class="price">$450</div>
+            <p class="price-note"><strong>Pago único de contado</strong> calculado a la tasa BCV vigente al momento del pago.</p>
+            <ul class="price-list">
+              <li>Página web de bingo</li>
+              <li>Panel de administración</li>
+              <li>Diseño adaptable</li>
+              <li>Soporte personalizado</li>
+              <li class="gift-item">Obsequio: archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</li>
+            </ul>
+            <button class="btn pay-btn" type="button" onclick="seleccionarPlan('Pago de contado', 'Pago único de $450 a BCV')">Elegir pago de contado</button>
+          </article>
+        </div>
+
+        <div class="acceptance-box">
+          <h3>Compra con confirmación segura</h3>
+          <p class="form-intro">Al elegir cualquiera de los planes se abrirá una ventana con cinco confirmaciones y el espacio de firma electrónica. Después de firmar, se generará tu constancia y se abrirá WhatsApp.</p>
+        </div>
+
+        <div class="terms-summary">
+          <h3>Condiciones principales de contratación</h3>
+          <p>El plan financiado tiene un total de <strong>$550</strong>: inicial de <strong>$150 a BCV</strong> y 12 cuotas <strong>quincenales</strong> de aproximadamente <strong>$33.33 a BCV</strong>, ajustándose la última cuota para completar el total. El plan de contado es de <strong>$450 a BCV</strong>. Ambos planes incluyen como obsequio un <strong>archivo Excel de bingo manual y automático</strong>. Si el comprador incumple los pagos, el servicio podrá pausarse y los montos abonados no serán reembolsados, salvo disposición legal obligatoria.</p>
+          <div class="terms-actions">
+            <button type="button" class="btn btn-ghost small-btn" onclick="abrirTerminos()">Leer términos completos</button>
+            <a class="btn btn-ghost small-btn" href="Terminos_y_Condiciones_Goldenpro_Ven.pdf" target="_blank" rel="noopener">Abrir documento PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preguntas">
+      <div class="container">
+        <div class="section-head">
+          <h2>Preguntas frecuentes</h2>
+          <p>Conoce las condiciones principales antes de reservar uno de los 10 cupos disponibles.</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>¿Qué pasa si no completo los pagos?</summary>
+            <div class="faq-answer">Las cuotas del plan financiado son quincenales. Si no completas un pago en la fecha acordada, la página será pausada hasta que la deuda sea regularizada. Los pagos realizados no se devuelven, salvo que una norma legal obligatoria disponga lo contrario. La reactivación se realizará después de verificar los pagos pendientes.</div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Recibo el código fuente de la página?</summary>
+            <div class="faq-answer">No. La contratación concede una licencia personal de uso del sistema. El código fuente, la infraestructura y los componentes técnicos continúan siendo propiedad del prestador, salvo que exista un acuerdo escrito diferente.</div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Cuándo comienza la configuración de mi página?</summary>
+            <div class="faq-answer">La configuración comienza después de verificar la inicial de $150 a BCV o el pago de contado de $450 a BCV, recibir la información necesaria del proyecto y confirmar por escrito el alcance y el cronograma de entrega.</div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Quién responde por los premios, pagos y ganadores del bingo?</summary>
+            <div class="faq-answer">El comprador, como organizador del bingo, asume el 100% de la responsabilidad operativa y económica frente a sus jugadores y terceros: premios, pagos a ganadores, cobros, devoluciones, verificación de resultados, publicidad, permisos, impuestos y cumplimiento legal. Goldenpro.Ven suministra una herramienta tecnológica y no organiza ni administra el bingo. Esto no excluye responsabilidades propias del prestador que legalmente no puedan renunciarse.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <div class="final-card">
+          <h2>Haz realidad tu proyecto de bingo</h2>
+          <p>Da el paso hacia una presentación más profesional, ordenada y preparada para recibir participantes desde cualquier dispositivo.</p>
+          <a class="btn btn-primary" href="#precios">Comenzar ahora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Goldenpro.Ven. Los montos en bolívares se calculan según la tasa BCV vigente al momento del pago.</div>
+  </footer>
+
+
+
+  <div class="modal-backdrop" id="modalConfirmacion" role="dialog" aria-modal="true" aria-labelledby="tituloConfirmacion">
+    <div class="terms-modal purchase-modal">
+      <div class="modal-head">
+        <h2 id="tituloConfirmacion">Confirma tu solicitud de compra</h2>
+        <button class="modal-close" type="button" onclick="cerrarConfirmacion()" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="plan-confirm-summary" id="resumenPlanSeleccionado">
+          <strong>Plan seleccionado:</strong> pendiente de selección.
+        </div>
+        <h3 class="confirm-title">Confirmaciones obligatorias</h3>
+        <p class="confirm-help">Marca las cinco casillas, dibuja tu firma electrónica y luego continúa por WhatsApp.</p>
+        <label class="check-row"><input type="checkbox" id="aceptaTerminos" required><span>He leído y acepto los <button type="button" class="terms-link" onclick="abrirTerminos()">Términos y Condiciones</button>, incluyendo las reglas de pago, suspensión del servicio y no devolución de los montos pagados, salvo obligación legal aplicable.</span></label>
+        <label class="check-row"><input type="checkbox" id="aceptaPago" required><span>Entiendo que las 12 cuotas del plan financiado son <strong>quincenales</strong>; si incumplo el calendario acordado, la página podrá ser pausada y los pagos realizados no serán devueltos, salvo obligación legal aplicable.</span></label>
+        <label class="check-row"><input type="checkbox" id="aceptaResponsabilidad" required><span>Declaro que, como comprador y organizador del bingo, asumo el <strong>100% de la responsabilidad operativa y económica</strong> frente a jugadores y terceros por premios, pagos a ganadores, cobros, devoluciones, resultados, publicidad, permisos, impuestos y cumplimiento legal. Goldenpro.Ven solo suministra la herramienta tecnológica.</span></label>
+        <label class="check-row"><input type="checkbox" id="aceptaLicenciaDatos" required><span>Entiendo que recibo una licencia de uso y no el código fuente; declaro que mis datos son correctos y autorizo su uso para generar la constancia y contactarme por WhatsApp.</span></label>
+        <label class="check-row"><input type="checkbox" id="aceptaFirma" required><span>Declaro que la firma trazada a continuación es mía y que la utilizo voluntariamente para aceptar electrónicamente esta solicitud antes de efectuar el pago.</span></label>
+        <div class="responsibility-alert"><strong>Responsabilidad del organizador:</strong> el prestador no organiza el bingo, no recibe el dinero de los jugadores y no entrega premios. La responsabilidad del organizador no excluye obligaciones propias del prestador que legalmente no puedan renunciarse.</div>
+        <div class="signature-box">
+          <h3>Firma electrónica del comprador</h3>
+          <p>Dibuja tu firma con el dedo o el mouse. Se insertará en la constancia junto con tu nombre, cédula/RIF, fecha, código único y huella de integridad.</p>
+          <div class="signature-name" id="nombreFirmaMostrado">Firmante: pendiente</div>
+          <div class="signature-canvas-wrap">
+            <canvas id="firmaCanvas" tabindex="0" aria-label="Área para dibujar la firma electrónica"></canvas>
+            <div class="signature-placeholder" id="firmaPlaceholder">Dibuja aquí tu firma</div>
+          </div>
+          <div class="signature-actions"><button type="button" class="signature-clear" onclick="limpiarFirma()">Limpiar firma</button></div>
+        </div>
+        <p class="confirm-warning"><strong>Obsequio incluido:</strong> archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</p>
+        <p class="document-note"><strong>Importante:</strong> al confirmar se descargará una constancia firmada con código único. Consérvala y envíala en el chat de WhatsApp que se abrirá.</p>
+        <p class="legal-note">Esta es una firma electrónica simple trazada en pantalla y sirve como evidencia junto con la constancia y los mensajes. No equivale automáticamente a una firma electrónica certificada por un proveedor acreditado.</p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-primary modal-confirm-btn" onclick="confirmarCompra()">Firmar y continuar a WhatsApp</button>
+        <button type="button" class="btn btn-ghost small-btn" onclick="cerrarConfirmacion()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalTerminos" role="dialog" aria-modal="true" aria-labelledby="tituloTerminos">
+    <div class="terms-modal">
+      <div class="modal-head">
+        <h2 id="tituloTerminos">Términos y Condiciones de contratación</h2>
+        <button class="modal-close" type="button" onclick="cerrarTerminos()" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <h3>1. Objeto del servicio</h3>
+        <p>Goldenpro.Ven ofrece la configuración y licencia de uso de una página web para la organización y administración de bingos. La contratación no implica la transferencia del código fuente, de la infraestructura técnica ni de derechos de propiedad intelectual, salvo acuerdo escrito diferente.</p>
+        <h3>2. Planes y tasa BCV</h3>
+        <p>Plan financiado: inicial de $150 y 12 cuotas <strong>quincenales</strong> de aproximadamente $33.33, para un total de $550. La última cuota podrá ajustarse para completar exactamente el total. Plan de contado: $450. Los pagos en bolívares se calculan según la tasa BCV vigente al momento de cada pago.</p><p>Ambos planes incluyen como obsequio un archivo Excel de bingo manual y automático para complementar la organización profesional del juego. El obsequio no modifica el precio, la licencia ni las demás condiciones del servicio principal.</p>
+        <h3>3. Inicio y alcance</h3>
+        <p>El trabajo comienza después de la verificación del pago correspondiente, la recepción de los materiales necesarios y la confirmación escrita del alcance. Cambios o funciones no incluidos inicialmente podrán cotizarse por separado.</p>
+        <h3>4. Incumplimiento, suspensión y reactivación</h3>
+        <p>Las cuotas del plan financiado son quincenales. Si el comprador no cumple el calendario de pagos, el acceso a la página podrá pausarse. La reactivación se realizará después de verificar los montos pendientes y, cuando corresponda, los costos adicionales informados previamente.</p>
+        <h3>5. Política de no devolución</h3>
+        <p>Los pagos realizados se consideran aplicados a reserva de cupo, configuración, disponibilidad técnica y licencia, por lo que no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable o acuerdo escrito del prestador.</p>
+        <h3>6. Responsabilidad del comprador y organizador</h3>
+        <p>El comprador, como organizador del bingo, asume el 100% de la responsabilidad operativa y económica frente a jugadores y terceros por la organización del evento, cobros, recepción de pagos, entrega de premios, pagos a ganadores, devoluciones, validación de resultados, publicidad, impuestos, tratamiento de datos, permisos, licencias y cumplimiento legal. Goldenpro.Ven suministra una herramienta tecnológica y no organiza el bingo, no recibe el dinero de los jugadores ni entrega premios. Esta distribución no excluye responsabilidades propias del Prestador que, conforme a una norma imperativa, no puedan limitarse o renunciarse.</p>
+        <h3>7. Servicios de terceros</h3>
+        <p>Dominio, alojamiento, bases de datos, correo, plataformas de transmisión, pasarelas y otros servicios de terceros solo estarán incluidos cuando se indique expresamente. Sus fallas, cambios de precio o condiciones pueden afectar el servicio.</p>
+        <h3>8. Soporte, mantenimiento y disponibilidad</h3>
+        <p>Se prestará el soporte incluido en la propuesta. Podrán realizarse pausas razonables por mantenimiento, seguridad, actualizaciones, fuerza mayor o fallas de proveedores externos.</p>
+        <h3>9. Datos y comunicaciones</h3>
+        <p>Los datos suministrados serán usados para gestionar la solicitud, preparar la constancia, comunicarse con el comprador y prestar el servicio. El comprador debe suministrar información verdadera y mantener actualizados sus datos de contacto.</p>
+        <h3>10. Aceptación y firma electrónica</h3>
+        <p>Antes de efectuar el pago, el comprador debe marcar las confirmaciones y trazar su firma en la pantalla. La firma gráfica, la constancia con código único, la fecha y hora, la huella de integridad y el mensaje de WhatsApp quedan asociados a la solicitud como evidencia electrónica. Esta modalidad es una firma electrónica simple y no equivale automáticamente a una firma electrónica certificada por un proveedor acreditado.</p>
+        <h3>11. Ley aplicable</h3>
+        <p>La relación se regirá por las leyes de la República Bolivariana de Venezuela. Las partes procurarán resolver cualquier diferencia mediante comunicación directa antes de acudir a las autoridades competentes.</p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-primary small-btn" onclick="aceptarDesdeModal()">Acepto los términos</button>
+        <a class="btn btn-ghost small-btn" href="Terminos_y_Condiciones_Goldenpro_Ven.pdf" target="_blank" rel="noopener">Ver PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <a class="floating-wa" href="#precios" aria-label="Ir a las opciones de pago">☎</a>
+  <div class="toast" id="toast" role="status" aria-live="polite">Completa los datos y acepta las condiciones.</div>
+
+  <script>
+    const WHATSAPP = '584123714136';
+    const VERSION_TERMINOS = '1.2 - 26/07/2026';
+    let planSeleccionado = null;
+    let firmaRealizada = false;
+    let firmaCanvas = null;
+    let firmaCtx = null;
+    let firmando = false;
+
+    function mostrarAviso(texto = 'Completa los datos y acepta las condiciones para continuar.') {
+      const toast = document.getElementById('toast');
+      toast.textContent = texto;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    function actualizarBloqueoScroll() {
+      const hayModalAbierto = document.querySelector('.modal-backdrop.open');
+      document.body.style.overflow = hayModalAbierto ? 'hidden' : '';
+    }
+
+    function abrirTerminos() {
+      document.getElementById('modalTerminos').classList.add('open');
+      actualizarBloqueoScroll();
+    }
+
+    function cerrarTerminos() {
+      document.getElementById('modalTerminos').classList.remove('open');
+      actualizarBloqueoScroll();
+    }
+
+    function abrirConfirmacion() {
+      document.getElementById('modalConfirmacion').classList.add('open');
+      document.getElementById('nombreFirmaMostrado').textContent = `Firmante: ${normalizarTexto(document.getElementById('nombre').value)}`;
+      actualizarBloqueoScroll();
+      requestAnimationFrame(inicializarFirma);
+    }
+
+    function cerrarConfirmacion() {
+      document.getElementById('modalConfirmacion').classList.remove('open');
+      actualizarBloqueoScroll();
+    }
+
+    function inicializarFirma() {
+      firmaCanvas = document.getElementById('firmaCanvas');
+      if (!firmaCanvas) return;
+      const rect = firmaCanvas.getBoundingClientRect();
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      firmaCanvas.width = Math.max(1, Math.round(rect.width * ratio));
+      firmaCanvas.height = Math.max(1, Math.round(rect.height * ratio));
+      firmaCtx = firmaCanvas.getContext('2d');
+      firmaCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      firmaCtx.fillStyle = '#ffffff';
+      firmaCtx.fillRect(0, 0, rect.width, rect.height);
+      firmaCtx.strokeStyle = '#14213d';
+      firmaCtx.lineWidth = 2.4;
+      firmaCtx.lineCap = 'round';
+      firmaCtx.lineJoin = 'round';
+      firmaRealizada = false;
+      document.getElementById('firmaPlaceholder').classList.remove('hidden');
+    }
+
+    function puntoFirma(event) {
+      const rect = firmaCanvas.getBoundingClientRect();
+      return {x: event.clientX - rect.left, y: event.clientY - rect.top};
+    }
+
+    function comenzarFirma(event) {
+      if (!firmaCtx) return;
+      event.preventDefault();
+      firmando = true;
+      firmaCanvas.setPointerCapture?.(event.pointerId);
+      const p = puntoFirma(event);
+      firmaCtx.beginPath();
+      firmaCtx.moveTo(p.x, p.y);
+    }
+
+    function dibujarFirma(event) {
+      if (!firmando || !firmaCtx) return;
+      event.preventDefault();
+      const p = puntoFirma(event);
+      firmaCtx.lineTo(p.x, p.y);
+      firmaCtx.stroke();
+      firmaRealizada = true;
+      document.getElementById('firmaPlaceholder').classList.add('hidden');
+    }
+
+    function terminarFirma(event) {
+      if (!firmando) return;
+      event?.preventDefault();
+      firmando = false;
+      firmaCtx?.closePath();
+    }
+
+    function limpiarFirma() {
+      inicializarFirma();
+      mostrarAviso('Firma limpiada. Dibuja nuevamente para continuar.');
+    }
+
+    function obtenerFirmaBase64() {
+      return firmaRealizada && firmaCanvas ? firmaCanvas.toDataURL('image/png') : '';
+    }
+
+    async function crearHuella(texto) {
+      try {
+        if (!window.crypto?.subtle) return 'NO-DISPONIBLE';
+        const bytes = new TextEncoder().encode(texto);
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch {
+        return 'NO-DISPONIBLE';
+      }
+    }
+
+    function aceptarDesdeModal() {
+      document.getElementById('aceptaTerminos').checked = true;
+      cerrarTerminos();
+      mostrarAviso('Términos aceptados. Completa las demás confirmaciones y firma.');
+    }
+
+    function normalizarTexto(valor) {
+      return String(valor || '').replace(/[<>]/g, '').trim();
+    }
+
+    function validarDatosComprador() {
+      const campos = ['nombre', 'documento', 'telefono', 'correo'];
+      let valido = true;
+      let primero = null;
+
+      campos.forEach(id => {
+        const input = document.getElementById(id);
+        const vacio = !input.value.trim();
+        const emailInvalido = id === 'correo' && input.value && !input.checkValidity();
+        input.classList.toggle('invalid', vacio || emailInvalido);
+        if (vacio || emailInvalido) {
+          valido = false;
+          primero ||= input;
+        }
+      });
+
+      if (!valido) {
+        primero.focus();
+        document.getElementById('datos-comprador').scrollIntoView({behavior:'smooth', block:'center'});
+        mostrarAviso('Completa correctamente tus datos antes de elegir el plan.');
+      }
+      return valido;
+    }
+
+    function seleccionarPlan(planTitulo, planDetalle) {
+      if (!validarDatosComprador()) return;
+
+      planSeleccionado = { planTitulo, planDetalle };
+      document.getElementById('resumenPlanSeleccionado').innerHTML = `<strong>${escaparHtml(planTitulo)}</strong><br>${escaparHtml(planDetalle)}<br><span>🎁 Incluye archivo Excel de bingo manual y automático.</span>`;
+      ['aceptaTerminos', 'aceptaPago', 'aceptaResponsabilidad', 'aceptaLicenciaDatos', 'aceptaFirma'].forEach(id => {
+        document.getElementById(id).checked = false;
+      });
+      abrirConfirmacion();
+    }
+
+    function validarConfirmaciones() {
+      const checks = ['aceptaTerminos', 'aceptaPago', 'aceptaResponsabilidad', 'aceptaLicenciaDatos', 'aceptaFirma'];
+      const faltantes = checks.filter(id => !document.getElementById(id).checked);
+      if (faltantes.length) {
+        document.getElementById(faltantes[0]).focus();
+        mostrarAviso('Debes marcar las cinco confirmaciones para continuar.');
+        return false;
+      }
+      if (!firmaRealizada) {
+        document.getElementById('firmaCanvas').focus();
+        mostrarAviso('Dibuja tu firma electrónica antes de continuar.');
+        return false;
+      }
+      return true;
+    }
+
+    async function confirmarCompra() {
+      if (!planSeleccionado) {
+        cerrarConfirmacion();
+        mostrarAviso('Selecciona nuevamente el plan que deseas contratar.');
+        return;
+      }
+      if (!validarConfirmaciones()) return;
+      const ventanaWhatsApp = window.open('', '_blank');
+      await enviarWhatsApp(planSeleccionado.planTitulo, planSeleccionado.planDetalle, ventanaWhatsApp);
+    }
+
+    function crearCodigo() {
+      const now = new Date();
+      const fecha = now.toISOString().replace(/[-:TZ.]/g, '').slice(0, 14);
+      const aleatorio = Math.random().toString(36).slice(2, 8).toUpperCase();
+      return `EV-${fecha}-${aleatorio}`;
+    }
+
+    function escaparHtml(texto) {
+      return String(texto).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    }
+
+    function descargarConstancia(datos) {
+      const condiciones = `
+        <ol>
+          <li>El comprador solicita la configuración y licencia de uso de una página web de bingo.</li>
+          <li>La contratación no transfiere el código fuente ni la infraestructura técnica, salvo acuerdo escrito diferente.</li>
+          <li>Plan seleccionado: ${escaparHtml(datos.planDetalle)}.</li>
+          <li>En el plan financiado, las doce (12) cuotas son quincenales.</li>
+          <li>Ambos planes incluyen como obsequio un archivo Excel de bingo manual y automático para complementar el juego.</li>
+          <li>Los pagos en bolívares se calculan a la tasa BCV vigente al momento del pago.</li>
+          <li>El incumplimiento del calendario de pagos podrá causar la pausa de la página hasta regularizar la deuda.</li>
+          <li>Los pagos realizados no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable.</li>
+          <li>El comprador, como organizador, asume el 100% de la responsabilidad operativa y económica frente a jugadores y terceros por premios, pagos a ganadores, cobros, devoluciones, resultados, publicidad, permisos, impuestos y cumplimiento legal.</li><li>Goldenpro.Ven suministra la herramienta tecnológica; no organiza el bingo, no recibe el dinero de jugadores ni entrega premios, sin excluir responsabilidades propias que legalmente no puedan renunciarse.</li>
+          <li>La firma gráfica trazada en pantalla, las casillas, la constancia, la huella de integridad y el mensaje de WhatsApp expresan aceptación electrónica previa al pago, sin equivaler automáticamente a firma electrónica certificada.</li>
+        </ol>`;
+
+      const documento = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Constancia ${datos.codigo}</title><style>
+        @page{size:A4;margin:20mm}body{font-family:Arial,sans-serif;color:#17203b;line-height:1.5;margin:0}.head{border-bottom:4px solid #f0b900;padding-bottom:14px;margin-bottom:22px}.brand{font-size:25px;font-weight:900;color:#07104e}.code{font-size:12px;color:#5d6475}.box{border:1px solid #ccd2df;border-radius:10px;padding:15px;margin:14px 0;background:#f8f9fc}h1{font-size:22px;margin:0 0 6px}h2{font-size:16px;color:#07104e;margin:22px 0 8px}table{width:100%;border-collapse:collapse}td{padding:8px;border-bottom:1px solid #e5e8ef;vertical-align:top}td:first-child{font-weight:700;width:34%}.accepted{padding:12px;border-left:5px solid #1f9d55;background:#effaf3;font-weight:700}.signature-image{max-width:360px;max-height:130px;border:1px solid #cfd5df;border-radius:8px;background:#fff;padding:8px}.hash{font-family:monospace;font-size:10px;word-break:break-all;color:#4e5668}.fine{font-size:11px;color:#626a7a;margin-top:28px}.sign{margin-top:45px;display:grid;grid-template-columns:1fr 1fr;gap:40px}.line{border-top:1px solid #333;padding-top:7px;text-align:center;font-size:12px}@media print{button{display:none}}</style></head><body>
+        <div class="head"><div class="brand">GOLDENPRO.VEN</div><div>Constancia de solicitud y aceptación electrónica</div><div class="code">Código: ${datos.codigo} | Versión de términos: ${VERSION_TERMINOS}</div></div>
+        <h1>Constancia de contratación</h1><p>Se deja constancia de que la persona identificada a continuación manifestó su interés en contratar el servicio y aceptó electrónicamente las condiciones indicadas.</p>
+        <div class="box"><table>
+          <tr><td>Nombre</td><td>${escaparHtml(datos.nombre)}</td></tr>
+          <tr><td>Cédula/RIF</td><td>${escaparHtml(datos.documento)}</td></tr>
+          <tr><td>WhatsApp</td><td>${escaparHtml(datos.telefono)}</td></tr>
+          <tr><td>Correo</td><td>${escaparHtml(datos.correo)}</td></tr>
+          <tr><td>Plan</td><td>${escaparHtml(datos.planTitulo)}</td></tr>
+          <tr><td>Condición económica</td><td>${escaparHtml(datos.planDetalle)}</td></tr>
+          <tr><td>Fecha y hora local</td><td>${escaparHtml(datos.fechaLocal)}</td></tr>
+          <tr><td>Fecha ISO</td><td>${escaparHtml(datos.fechaISO)}</td></tr>
+          <tr><td>Versión de términos</td><td>${escaparHtml(VERSION_TERMINOS)}</td></tr>
+          <tr><td>Huella SHA-256</td><td class="hash">${escaparHtml(datos.huella)}</td></tr>
+        </table></div>
+        <div class="accepted">☑ El comprador marcó las cinco casillas obligatorias, asumió expresamente la responsabilidad del organizador y trazó su firma electrónica antes del pago.</div><h2>Firma electrónica trazada</h2><div class="box"><p><strong>Firmante:</strong> ${escaparHtml(datos.nombre)} - ${escaparHtml(datos.documento)}</p><img class="signature-image" src="${datos.firmaBase64}" alt="Firma electrónica del comprador"></div>
+        <h2>Condiciones aceptadas</h2>${condiciones}
+        <h2>Observación</h2><p>Esta constancia debe conservarse y enviarse al WhatsApp de Goldenpro.Ven para incorporarla al expediente comercial. Por sí sola no acredita el pago; el servicio comienza cuando el pago correspondiente es verificado.</p>
+        <div class="sign"><div class="line">Comprador / firma electrónica registrada</div><div class="line">Goldenpro.Ven / verificación de pago</div></div>
+        <p class="fine">Documento generado automáticamente desde la landing page. Para mayor seguridad jurídica, complete la identificación legal del prestador y conserve también comprobantes de pago, conversaciones y confirmaciones de entrega.</p>
+        <button onclick="window.print()">Imprimir o guardar como PDF</button>
+      </body></html>`;
+
+      const blob = new Blob([documento], {type:'text/html;charset=utf-8'});
+      const enlace = document.createElement('a');
+      enlace.href = URL.createObjectURL(blob);
+      enlace.download = `Constancia_${datos.codigo}.html`;
+      document.body.appendChild(enlace);
+      enlace.click();
+      enlace.remove();
+      setTimeout(() => URL.revokeObjectURL(enlace.href), 1500);
+    }
+
+    async function enviarWhatsApp(planTitulo, planDetalle, ventanaWhatsApp) {
+      const now = new Date();
+      const firmaBase64 = obtenerFirmaBase64();
+      const datos = {
+        nombre: normalizarTexto(document.getElementById('nombre').value),
+        documento: normalizarTexto(document.getElementById('documento').value),
+        telefono: normalizarTexto(document.getElementById('telefono').value),
+        correo: normalizarTexto(document.getElementById('correo').value),
+        planTitulo,
+        planDetalle,
+        codigo: crearCodigo(),
+        fechaLocal: now.toLocaleString('es-VE', {dateStyle:'full', timeStyle:'medium'}),
+        fechaISO: now.toISOString(),
+        firmaBase64
+      };
+      datos.huella = await crearHuella([datos.codigo, datos.nombre, datos.documento, datos.planDetalle, datos.fechaISO, firmaBase64, VERSION_TERMINOS].join('|'));
+
+      descargarConstancia(datos);
+      localStorage.setItem('ultima_constancia_goldenpro_ven', JSON.stringify(datos));
+
+      const mensaje = [
+        'Hola, deseo contratar la página web de bingo.',
+        '',
+        `Nombre: ${datos.nombre}`,
+        `Cédula/RIF: ${datos.documento}`,
+        `WhatsApp: ${datos.telefono}`,
+        `Correo: ${datos.correo}`,
+        `Plan elegido: ${datos.planTitulo}`,
+        `Condición: ${datos.planDetalle}`,
+        'Obsequio incluido: archivo Excel de bingo manual y automático para completar el juego de manera profesional.',
+        `Código de aceptación: ${datos.codigo}`,
+        `Huella SHA-256: ${datos.huella}`,
+        '',
+        'Confirmo que marqué las cinco casillas y firmé electrónicamente antes del pago. Acepto los Términos y Condiciones, el calendario quincenal, la suspensión por falta de pago, la no devolución salvo obligación legal aplicable y la licencia sin entrega del código fuente.',
+        'Como organizador, asumo el 100% de la responsabilidad operativa y económica frente a jugadores y terceros por premios, pagos a ganadores, cobros, devoluciones, resultados, permisos, impuestos y cumplimiento legal. Goldenpro.Ven solo suministra la herramienta tecnológica.',
+        '',
+        'La página descargó una constancia. La adjuntaré en este chat para continuar.'
+      ].join('\n');
+
+      const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+      cerrarConfirmacion();
+      if (ventanaWhatsApp) {
+        ventanaWhatsApp.location.href = url;
+      } else {
+        window.location.href = url;
+      }
+      mostrarAviso('Constancia firmada generada. Envíala en el chat de WhatsApp que se abrió.');
+    }
+
+    document.addEventListener('pointerdown', event => {
+      if (event.target?.id === 'firmaCanvas') comenzarFirma(event);
+    });
+    document.addEventListener('pointermove', event => {
+      if (event.target?.id === 'firmaCanvas' || firmando) dibujarFirma(event);
+    });
+    document.addEventListener('pointerup', terminarFirma);
+    document.addEventListener('pointercancel', terminarFirma);
+
+    document.getElementById('modalTerminos').addEventListener('click', event => {
+      if (event.target.id === 'modalTerminos') cerrarTerminos();
+    });
+    document.getElementById('modalConfirmacion').addEventListener('click', event => {
+      if (event.target.id === 'modalConfirmacion') cerrarConfirmacion();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      if (document.getElementById('modalTerminos').classList.contains('open')) {
+        cerrarTerminos();
+      } else if (document.getElementById('modalConfirmacion').classList.contains('open')) {
+        cerrarConfirmacion();
+      }
+    });
+  </script>
+</body>
+</html>
