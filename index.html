@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07124f" />
   <meta name="description" content="Obtén tu página web de bingo con panel de administración, transmisión en vivo y soporte personalizado." />
+  <link rel="canonical" href="https://sistemabingo75.online/" />
   <title>Tu página web de bingo | Goldenpro.Ven</title>
   <style>
     :root {
@@ -125,6 +126,116 @@
     }
     .video-frame { position:relative; aspect-ratio:16/9; overflow:hidden; border-radius:20px; background:#000; }
     .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+
+    /* Demostración vertical dentro de un marco de teléfono */
+    .mobile-demo {
+      margin-top:52px;
+      text-align:center;
+    }
+    .mobile-demo-copy {
+      max-width:680px;
+      margin:0 auto 24px;
+    }
+    .mobile-demo-kicker {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,209,0,.38);
+      background:rgba(255,209,0,.09);
+      color:#ffe96a;
+      font-weight:900;
+      font-size:.9rem;
+    }
+    .mobile-demo h3 {
+      margin:15px 0 9px;
+      font-size:clamp(1.65rem,3.5vw,2.45rem);
+      letter-spacing:-.03em;
+    }
+    .mobile-demo p {
+      margin:0;
+      color:#d8deff;
+      line-height:1.7;
+    }
+    .phone-showcase {
+      position:relative;
+      width:min(360px,88vw);
+      margin:0 auto;
+      padding:16px 11px 20px;
+      border-radius:48px;
+      background:linear-gradient(145deg,#343746 0%,#090b12 42%,#222631 100%);
+      border:2px solid rgba(255,255,255,.52);
+      box-shadow:
+        0 30px 75px rgba(0,0,0,.55),
+        0 0 42px rgba(255,209,0,.16),
+        inset 0 0 0 2px rgba(0,0,0,.72);
+    }
+    .phone-showcase::before {
+      content:"";
+      position:absolute;
+      top:9px;
+      left:50%;
+      width:34%;
+      height:24px;
+      transform:translateX(-50%);
+      border-radius:0 0 16px 16px;
+      background:#050608;
+      z-index:3;
+      box-shadow:0 1px 0 rgba(255,255,255,.08);
+    }
+    .phone-showcase::after {
+      content:"";
+      position:absolute;
+      right:-5px;
+      top:112px;
+      width:4px;
+      height:70px;
+      border-radius:0 5px 5px 0;
+      background:#4b4f5d;
+      box-shadow:0 86px 0 #4b4f5d;
+    }
+    .phone-screen {
+      position:relative;
+      aspect-ratio:9/19.5;
+      overflow:hidden;
+      border-radius:36px;
+      background:#000;
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .phone-screen iframe {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+      background:#000;
+    }
+    .phone-speaker {
+      position:absolute;
+      top:16px;
+      left:50%;
+      z-index:4;
+      width:42px;
+      height:4px;
+      transform:translateX(-50%);
+      border-radius:999px;
+      background:#272a31;
+      pointer-events:none;
+    }
+    .phone-camera {
+      position:absolute;
+      top:14px;
+      left:calc(50% + 34px);
+      z-index:4;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#152349;
+      box-shadow:inset 0 0 0 2px #080a11;
+      pointer-events:none;
+    }
 
     .features { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
     .feature { padding:26px; border:1px solid var(--line); background:rgba(255,255,255,.06); border-radius:22px; }
@@ -342,6 +453,9 @@
       section { padding:58px 0; }
       .price-card { padding:24px 20px; }
       .floating-wa { width:56px; height:56px; right:14px; bottom:14px; }
+      .mobile-demo { margin-top:38px; }
+      .phone-showcase { width:min(315px,92vw); border-radius:42px; padding:14px 9px 18px; }
+      .phone-screen { border-radius:31px; }
     }
   </style>
 
@@ -366,7 +480,7 @@
         <div>
           <span class="eyebrow">🚀 Convierte tu bingo en un negocio digital</span>
           <div class="scarcity-badge">🔥 Oferta limitada: solo 10 cupos disponibles</div>
-          <h1>Tu página web de bingo(sistema de reserva y administracion) <span>lista para vender</span></h1>
+          <h1>Tu página web de bingo <span>lista para vender</span></h1>
           <p class="hero-copy">Recibe solicitudes, organiza participantes, transmite en vivo y administra tus sorteos desde una página profesional adaptada a teléfonos, tabletas y computadoras.</p>
           <div class="hero-points">
             <div class="hero-point"><span class="check">✓</span><span>Panel de administración</span></div>
@@ -403,6 +517,23 @@
         <div class="video-shell">
           <div class="video-frame">
             <iframe src="https://streamable.com/e/kb11r5" title="Demostración del sistema de bingo" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+
+
+        <div class="mobile-demo">
+          <div class="mobile-demo-copy">
+            <span class="mobile-demo-kicker">📱 Vista en dispositivo móvil</span>
+            <h3>Así se ve la página desde un teléfono</h3>
+            <p>Observa la experiencia vertical y adaptable que tendrán tus compradores al ingresar desde su celular.</p>
+          </div>
+
+          <div class="phone-showcase" aria-label="Demostración de la página dentro de un teléfono">
+            <span class="phone-speaker" aria-hidden="true"></span>
+            <span class="phone-camera" aria-hidden="true"></span>
+            <div class="phone-screen">
+              <iframe src="https://streamable.com/e/ds2kjw" title="Demostración móvil del sistema de bingo" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -545,7 +676,7 @@
   </main>
 
   <footer>
-    <div class="container">© 2026 Goldenpro.Ven. Los montos en bolívares se calculan según la tasa BCV vigente al momento del pago.</div>
+    <div class="container">© 2026 Goldenpro.Ven · sistemabingo75.online · goldenpro.ven@gmail.com. Los montos en bolívares se calculan según la tasa BCV vigente al momento del pago.</div>
   </footer>
 
 
@@ -580,7 +711,7 @@
         </div>
         <p class="confirm-warning"><strong>Obsequio incluido:</strong> archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</p>
         <div class="turnstile-wrap">
-          <div class="cf-turnstile" data-sitekey="REEMPLAZAR_CON_TURNSTILE_SITE_KEY" data-theme="light" data-language="es"></div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAD-m3BYWk2vLmaUg" data-theme="light" data-language="es"></div>
         </div>
         <p class="document-note"><strong>Importante:</strong> al confirmar se generará una constancia firmada en PDF, se enviará al correo del comprador y al de Goldenpro.Ven, y también se descargará una copia en el dispositivo.</p>
         <p class="legal-note">Esta es una firma electrónica simple trazada en pantalla y sirve como evidencia junto con la constancia, los correos y los mensajes. No equivale automáticamente a una firma electrónica certificada por un proveedor acreditado.</p>
@@ -601,6 +732,7 @@
       </div>
       <div class="modal-body">
         <h3>1. Objeto del servicio</h3>
+        <p><strong>Prestador:</strong> Goldenpro.Ven · sistemabingo75.online · goldenpro.ven@gmail.com.</p>
         <p>Goldenpro.Ven ofrece la configuración y licencia de uso de una página web para la organización y administración de bingos. La contratación no implica la transferencia del código fuente, de la infraestructura técnica ni de derechos de propiedad intelectual, salvo acuerdo escrito diferente.</p>
         <h3>2. Planes y tasa BCV</h3>
         <p>Plan financiado: inicial de $150 y 12 cuotas <strong>quincenales</strong> de aproximadamente $33.33, para un total de $550. La última cuota podrá ajustarse para completar exactamente el total. Plan de contado: $450. Los pagos en bolívares se calculan según la tasa BCV vigente al momento de cada pago.</p><p>Ambos planes incluyen como obsequio un archivo Excel de bingo manual y automático para complementar la organización profesional del juego. El obsequio no modifica el precio, la licencia ni las demás condiciones del servicio principal.</p>
@@ -634,7 +766,7 @@
 
   <script>
     const WHATSAPP = '584123714136';
-    const WORKER_URL = 'REEMPLAZAR_CON_URL_DEL_WORKER';
+    const WORKER_URL = 'https://goldenpro-constancias.goldenpro-ven.workers.dev/';
     const VERSION_TERMINOS = '1.3 - 26/07/2026';
     let planSeleccionado = null;
     let firmaRealizada = false;
@@ -903,7 +1035,7 @@
         doc.setTextColor(255, 209, 0);
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
-        doc.text('GOLDENPRO.VEN', margin, 12);
+        doc.text('GOLDENPRO.VEN · sistemabingo75.online', margin, 12);
         doc.setTextColor(255, 255, 255);
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9);
@@ -999,7 +1131,7 @@
       condiciones.forEach((item, i) => texto(`${i + 1}. ${item}`, {size:9.4, lineHeight:4.4, after:1.8}));
 
       subtitulo('Observación');
-      texto('Esta constancia no acredita por sí sola el pago. El servicio comienza cuando Goldenpro.Ven verifica el pago correspondiente y confirma por escrito el alcance y el cronograma. La misma constancia fue enviada al correo declarado por el comprador y al correo administrativo de Goldenpro.Ven.', {size:9.5});
+      texto('Esta constancia no acredita por sí sola el pago. El servicio comienza cuando Goldenpro.Ven verifica el pago correspondiente y confirma por escrito el alcance y el cronograma. La misma constancia fue enviada al correo declarado por el comprador y a goldenpro.ven@gmail.com. Contacto: sistemabingo75.online.', {size:9.5});
 
       const paginas = doc.getNumberOfPages();
       for (let pagina = 1; pagina <= paginas; pagina++) {
