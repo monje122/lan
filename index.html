@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07124f" />
-  <meta name="description" content="Obtén tu página web de bingo con panel de administración, transmisión en vivo y soporte personalizado." />
+  <meta name="description" content="Obtén tu sistema dinámico de reserva y administración de cartones de bingo con panel privado, transmisión en vivo y diseño adaptable." />
   <link rel="canonical" href="https://sistemabingo75.online/" />
-  <title>Tu página web de bingo | Goldenpro.Ven</title>
+  <title>Sistema de reserva y administración de bingo | Goldenpro.Ven</title>
   <style>
     :root {
       --navy:#050b35;
@@ -83,6 +83,7 @@
     }
     h1 { font-size:clamp(2.65rem,6vw,5.25rem); line-height:.95; margin:20px 0 20px; letter-spacing:-.055em; }
     h1 span { color:var(--yellow); text-shadow:0 0 28px rgba(255,209,0,.28); }
+    .hero-copy { max-width:650px; color:#dfe4ff; font-size:clamp(1rem,1.7vw,1.2rem); line-height:1.7; }
     .hero-subtitle {
       margin:-4px 0 14px;
       color:#ffe96a;
@@ -91,7 +92,6 @@
       font-weight:900;
       letter-spacing:-.02em;
     }
-    .hero-copy { max-width:650px; color:#dfe4ff; font-size:clamp(1rem,1.7vw,1.2rem); line-height:1.7; }
     .hero-points { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:28px 0; }
     .hero-point {
       display:flex; gap:10px; align-items:flex-start; padding:13px 14px;
@@ -282,6 +282,12 @@
     .price-list { list-style:none; padding:0; margin:22px 0; display:grid; gap:10px; color:#eef1ff; }
     .price-list li::before { content:"✓"; color:var(--yellow); font-weight:900; margin-right:10px; }
     .pay-btn { width:100%; background:var(--green); color:#062c16; }
+    .provider-note {
+      max-width:940px; margin:22px auto 0; padding:18px 20px;
+      border:1px solid rgba(255,209,0,.32); border-radius:18px;
+      background:rgba(255,209,0,.075); color:#e9edff; line-height:1.65;
+    }
+    .provider-note strong { color:#ffe96a; }
 
     .final-cta { text-align:center; padding-bottom:110px; }
     .final-card {
@@ -490,7 +496,7 @@
           <div class="scarcity-badge">🔥 Oferta limitada: solo 10 cupos disponibles</div>
           <h1>Tu página web de bingo <span>lista para vender</span></h1>
           <h2 class="hero-subtitle">Sistema dinámico de reserva y administración de cartones</h2>
-          <p class="hero-copy">Tus compradores pueden seleccionar o reservar cartones disponibles, enviar sus datos y comprobantes, mientras administras solicitudes, aprobaciones, participantes, ventas y ganadores desde un panel privado.</p>
+          <p class="hero-copy">Tus compradores pueden seleccionar o reservar cartones disponibles, enviar sus datos y comprobantes, mientras administras solicitudes, aprobaciones, participantes, ventas y ganadores desde un panel privado adaptable a teléfonos, tabletas y computadoras.</p>
           <div class="hero-points">
             <div class="hero-point"><span class="check">✓</span><span>Panel de administración</span></div>
             <div class="hero-point"><span class="check">✓</span><span>Usuarios ilimitados</span></div>
@@ -607,10 +613,12 @@
             <div class="price">$150</div>
             <p class="price-note"><strong>Inicial de $150 a BCV</strong><br>+ 12 cuotas <strong>quincenales</strong> de <strong>$33.33 aprox.</strong> a BCV.<br>Total financiado: <strong>$550</strong>.<br>La última cuota se ajusta para completar el monto total.</p>
             <ul class="price-list">
-              <li>Página web de bingo</li>
-              <li>Panel de administración</li>
-              <li>Diseño adaptable</li>
-              <li>Soporte personalizado</li>
+              <li>Sistema dinámico de reserva y administración</li>
+              <li>Panel privado de administración</li>
+              <li>Diseño adaptable a teléfonos, tabletas y computadoras</li>
+              <li>Configuración inicial de la base de datos en Supabase</li>
+              <li>Un mes de soporte técnico incluido</li>
+              <li>Dominio estándar .com incluido durante el primer año, sujeto a disponibilidad</li>
               <li class="gift-item">Obsequio: archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</li>
             </ul>
             <button class="btn pay-btn" type="button" onclick="seleccionarPlan('Plan financiado', 'Inicial de $150 a BCV + 12 cuotas quincenales de $33.33 aproximadamente a BCV; total financiado de $550, con ajuste de la última cuota')">Elegir plan financiado</button>
@@ -621,14 +629,20 @@
             <div class="price">$450</div>
             <p class="price-note"><strong>Pago único de contado</strong> calculado a la tasa BCV vigente al momento del pago.</p>
             <ul class="price-list">
-              <li>Página web de bingo</li>
-              <li>Panel de administración</li>
-              <li>Diseño adaptable</li>
-              <li>Soporte personalizado</li>
+              <li>Sistema dinámico de reserva y administración</li>
+              <li>Panel privado de administración</li>
+              <li>Diseño adaptable a teléfonos, tabletas y computadoras</li>
+              <li>Configuración inicial de la base de datos en Supabase</li>
+              <li>Un mes de soporte técnico incluido</li>
+              <li>Dominio estándar .com incluido durante el primer año, sujeto a disponibilidad</li>
               <li class="gift-item">Obsequio: archivo Excel de bingo manual y automático para completar tu juego de manera profesional.</li>
             </ul>
             <button class="btn pay-btn" type="button" onclick="seleccionarPlan('Pago de contado', 'Pago único de $450 a BCV')">Elegir pago de contado</button>
           </article>
+        </div>
+
+        <div class="provider-note">
+          <strong>Base de datos, soporte y dominio:</strong> la configuración inicial utiliza Supabase y, con un tráfico bajo o moderado, es poco probable que sea necesario pasar al plan Pro. Si el sistema alcanza un tráfico considerable, muchas conexiones simultáneas, alto almacenamiento o transferencia de datos, podría requerirse un plan de pago de Supabase, actualmente desde $25 mensuales y sujeto a cambios del proveedor. Ese cambio no se realizará automáticamente: deberá informarse y autorizarse previamente. Ambos planes incluyen un mes de soporte técnico y un dominio estándar .com durante el primer año, sujeto a disponibilidad. La renovación posterior del dominio y los servicios externos de pago no están incluidos.
         </div>
 
         <div class="acceptance-box">
@@ -638,7 +652,7 @@
 
         <div class="terms-summary">
           <h3>Condiciones principales de contratación</h3>
-          <p>El plan financiado tiene un total de <strong>$550</strong>: inicial de <strong>$150 a BCV</strong> y 12 cuotas <strong>quincenales</strong> de aproximadamente <strong>$33.33 a BCV</strong>, ajustándose la última cuota para completar el total. El plan de contado es de <strong>$450 a BCV</strong>. Ambos planes incluyen como obsequio un <strong>archivo Excel de bingo manual y automático</strong>. Si el comprador incumple los pagos, el servicio podrá pausarse y los montos abonados no serán reembolsados, salvo disposición legal obligatoria.</p>
+          <p>El plan financiado tiene un total de <strong>$550</strong>: inicial de <strong>$150 a BCV</strong> y 12 cuotas <strong>quincenales</strong> de aproximadamente <strong>$33.33 a BCV</strong>, ajustándose la última cuota para completar el total. El plan de contado es de <strong>$450 a BCV</strong>. Ambos planes incluyen un <strong>mes de soporte técnico</strong>, un <strong>dominio estándar .com durante el primer año</strong>, sujeto a disponibilidad, la configuración inicial de Supabase y como obsequio un <strong>archivo Excel de bingo manual y automático</strong>. En condiciones de tráfico bajo o moderado es poco probable que se requiera Supabase Pro; si el consumo aumenta considerablemente, cualquier plan de pago deberá informarse y autorizarse previamente. Si el comprador incumple los pagos, el servicio podrá pausarse y los montos abonados no serán reembolsados, salvo disposición legal obligatoria.</p>
           <div class="terms-actions">
             <button type="button" class="btn btn-ghost small-btn" onclick="abrirTerminos()">Leer términos completos</button>
           </div>
@@ -655,7 +669,7 @@
         <div class="faq-list">
           <details class="faq-item">
             <summary>¿Qué pasa si no completo los pagos?</summary>
-            <div class="faq-answer">Las cuotas del plan financiado son quincenales. Si no completas un pago en la fecha acordada, la página será pausada hasta que la deuda sea regularizada. La reactivación se realizará después de verificar los pagos pendientes. Los pagos realizados no serán reembolsados si el comprador abandona el plan o incumple las cuotas, siempre que Goldenpro.Ven haya cumplido con el servicio contratado. Esto no limita los derechos que la ley reconozca al comprador en caso de incumplimiento atribuible al prestador. </div>
+            <div class="faq-answer">Las cuotas del plan financiado son quincenales. Si no completas un pago en la fecha acordada, la página será pausada hasta que la deuda sea regularizada. Los pagos realizados no se devuelven, salvo que una norma legal obligatoria disponga lo contrario. La reactivación se realizará después de verificar los pagos pendientes.</div>
           </details>
           <details class="faq-item">
             <summary>¿Recibo el código fuente de la página?</summary>
@@ -742,26 +756,33 @@
       <div class="modal-body">
         <h3>1. Objeto del servicio</h3>
         <p><strong>Prestador:</strong> Goldenpro.Ven · sistemabingo75.online · goldenpro.ven@gmail.com.</p>
-        <p>Goldenpro.Ven ofrece la configuración y licencia de uso de una página web para la organización y administración de bingos. La contratación no implica la transferencia del código fuente, de la infraestructura técnica ni de derechos de propiedad intelectual, salvo acuerdo escrito diferente.</p>
+        <p>Goldenpro.Ven ofrece la configuración y licencia de uso de un sistema dinámico de reserva y administración de cartones de bingo. La contratación no implica la transferencia del código fuente, de la infraestructura técnica ni de derechos de propiedad intelectual, salvo acuerdo escrito diferente.</p>
         <h3>2. Planes y tasa BCV</h3>
         <p>Plan financiado: inicial de $150 y 12 cuotas <strong>quincenales</strong> de aproximadamente $33.33, para un total de $550. La última cuota podrá ajustarse para completar exactamente el total. Plan de contado: $450. Los pagos en bolívares se calculan según la tasa BCV vigente al momento de cada pago.</p><p>Ambos planes incluyen como obsequio un archivo Excel de bingo manual y automático para complementar la organización profesional del juego. El obsequio no modifica el precio, la licencia ni las demás condiciones del servicio principal.</p>
         <h3>3. Inicio y alcance</h3>
-        <p>El trabajo comienza después de la verificación del pago correspondiente, la recepción de los materiales necesarios y la confirmación escrita del alcance. Cambios o funciones no incluidos inicialmente podrán cotizarse por separado.</p>
+        <p>El trabajo comienza después de la verificación del pago correspondiente, la recepción de los materiales necesarios y la confirmación escrita del alcance. Cambios, rediseños o funciones no incluidos inicialmente podrán cotizarse por separado.</p>
         <h3>4. Incumplimiento, suspensión y reactivación</h3>
-        <p>Las cuotas del plan financiado son quincenales. Si el comprador no cumple el calendario de pagos, el acceso a la página podrá pausarse. La reactivación se realizará después de verificar los montos pendientes y, cuando corresponda, los costos adicionales informados previamente.</p>
+        <p>Las cuotas del plan financiado son quincenales. Si el comprador no cumple el calendario de pagos, el acceso a la página podrá pausarse. La reactivación se realizará después de verificar todos los montos vencidos y, cuando corresponda, los costos adicionales informados previamente.</p>
         <h3>5. Política de no devolución</h3>
-        <p>Los pagos realizados se consideran aplicados a reserva de cupo, configuración, disponibilidad técnica y licencia, por lo que no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable o acuerdo escrito del prestador.</p>
+        <p>Los pagos realizados se consideran aplicados a reserva de cupo, configuración, disponibilidad técnica y licencia, por lo que no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable, incumplimiento atribuible al prestador o acuerdo escrito entre las partes.</p>
         <h3>6. Responsabilidad del comprador y organizador</h3>
         <p>El comprador, como organizador del bingo, asume el 100% de la responsabilidad operativa y económica frente a jugadores y terceros por la organización del evento, cobros, recepción de pagos, entrega de premios, pagos a ganadores, devoluciones, validación de resultados, publicidad, impuestos, tratamiento de datos, permisos, licencias y cumplimiento legal. Goldenpro.Ven suministra una herramienta tecnológica y no organiza el bingo, no recibe el dinero de los jugadores ni entrega premios. Esta distribución no excluye responsabilidades propias del Prestador que, conforme a una norma imperativa, no puedan limitarse o renunciarse.</p>
-        <h3>7. Servicios de terceros</h3>
-        <p>Dominio, alojamiento, bases de datos, correo, plataformas de transmisión, pasarelas y otros servicios de terceros solo estarán incluidos cuando se indique expresamente. Sus fallas, cambios de precio o condiciones pueden afectar el servicio.</p>
-        <h3>8. Soporte, mantenimiento y disponibilidad</h3>
-        <p>Se prestará el soporte incluido en la propuesta. Podrán realizarse pausas razonables por mantenimiento, seguridad, actualizaciones, fuerza mayor o fallas de proveedores externos.</p>
-        <h3>9. Datos y comunicaciones</h3>
+        <h3>7. Supabase y otros servicios de terceros</h3>
+        <p>El sistema utiliza <strong>Supabase</strong> como proveedor externo para la base de datos, almacenamiento, autenticación y otras funciones técnicas. También puede depender de servicios de dominio, alojamiento, correo y transmisión. Si Supabase o cualquier otro proveedor realiza mantenimiento, presenta una interrupción o sufre una falla temporal, algunas funciones pueden quedar limitadas hasta que dicho proveedor restablezca el servicio. Goldenpro.Ven realizará las verificaciones razonables, pero no controla directamente los tiempos de recuperación de terceros.</p>
+        <p>La configuración inicial podrá utilizar el plan gratuito de Supabase. Para un proyecto con tráfico bajo o moderado y uso normal, es poco probable que sea necesario contratar el plan Pro; sin embargo, esto no puede garantizarse porque depende del tráfico real, la cantidad de usuarios y conexiones simultáneas, el almacenamiento de comprobantes e imágenes, la transferencia de datos y los límites establecidos por Supabase.</p>
+        <p>Si el proyecto supera los recursos gratuitos, Supabase puede aplicar avisos o restricciones. Para continuar sin esas limitaciones podría ser necesario contratar un plan de pago, actualmente desde <strong>$25 mensuales</strong>, sujeto a cambios de precio y condiciones del proveedor. El plan gratuito no genera cobros automáticos y ningún cambio a un plan de pago será realizado sin informar y obtener previamente la autorización del comprador. Los costos de Supabase Pro, consumos adicionales y otros servicios externos de pago no están incluidos en el precio de la página y serán asumidos por el comprador.</p>
+        <p>Supabase también puede pausar proyectos gratuitos por inactividad conforme a sus propias políticas. Cuando esto ocurra, el proyecto deberá reanudarse desde el panel de Supabase o migrarse a un plan que evite dicha pausa.</p>
+        <h3>8. Soporte técnico incluido</h3>
+        <p>La contratación incluye como obsequio <strong>un mes de soporte técnico</strong>, contado desde la activación o entrega de la página. Incluye orientación de uso, apoyo con la configuración inicial y corrección de errores atribuibles a las funciones entregadas. No incluye nuevas funciones, rediseños completos, carga masiva de información, daños causados por modificaciones de terceros, uso indebido ni pagos de proveedores externos. Después del primer mes, cualquier soporte o mantenimiento adicional podrá cotizarse por separado.</p>
+        <h3>9. Dominio incluido durante el primer año</h3>
+        <p>La contratación incluye el registro o uso de <strong>un dominio estándar .com durante el primer año</strong>, por ejemplo <strong>www.ejemplo.com</strong>, sujeto a disponibilidad. No se incluyen dominios premium, reservados o con precios especiales. Al finalizar el primer año, la renovación deberá ser pagada por el comprador según la tarifa vigente del registrador. Si el dominio no se renueva antes de su vencimiento, la página podría dejar de estar disponible mediante esa dirección.</p>
+        <h3>10. Mantenimiento y disponibilidad</h3>
+        <p>Podrán realizarse pausas razonables por mantenimiento, seguridad, actualizaciones, fuerza mayor o fallas de proveedores externos. Cuando la interrupción dependa de Supabase u otro tercero, será necesario esperar a que el proveedor restablezca el servicio.</p>
+        <h3>11. Datos y comunicaciones</h3>
         <p>Los datos suministrados serán usados para gestionar la solicitud, preparar y enviar la constancia a ambas partes, comunicarse con el comprador y prestar el servicio. El comprador debe suministrar información verdadera y mantener actualizados sus datos de contacto.</p>
-        <h3>10. Aceptación y firma electrónica</h3>
+        <h3>12. Aceptación y firma electrónica</h3>
         <p>Antes de efectuar el pago, el comprador debe marcar las confirmaciones y trazar su firma en la pantalla. La firma gráfica, la constancia con código único, la fecha y hora, la huella de integridad, los correos enviados y el mensaje de WhatsApp quedan asociados a la solicitud como evidencia electrónica. Esta modalidad es una firma electrónica simple y no equivale automáticamente a una firma electrónica certificada por un proveedor acreditado.</p>
-        <h3>11. Ley aplicable</h3>
+        <h3>13. Ley aplicable</h3>
         <p>La relación se regirá por las leyes de la República Bolivariana de Venezuela. Las partes procurarán resolver cualquier diferencia mediante comunicación directa antes de acudir a las autoridades competentes.</p>
       </div>
       <div class="modal-foot">
@@ -776,7 +797,7 @@
   <script>
     const WHATSAPP = '584123714136';
     const WORKER_URL = 'https://goldenpro-constancias.goldenpro-ven.workers.dev/';
-    const VERSION_TERMINOS = '1.3 - 26/07/2026';
+    const VERSION_TERMINOS = '1.4 - 28/07/2026';
     let planSeleccionado = null;
     let firmaRealizada = false;
     let firmaCanvas = null;
@@ -1113,7 +1134,7 @@
       y += 3;
 
       subtitulo('Confirmación de aceptación');
-      texto('El comprador confirmó expresamente los Términos y Condiciones, el calendario quincenal del plan financiado, la suspensión por incumplimiento, la política de no devolución salvo obligación legal, la licencia de uso sin entrega del código fuente y su responsabilidad como organizador.', {style:'bold', color:[31, 113, 69], after:5});
+      texto('El comprador confirmó expresamente los Términos y Condiciones, el calendario quincenal del plan financiado, la suspensión por incumplimiento, la política de no devolución salvo obligación legal, la licencia de uso sin entrega del código fuente, el uso de Supabase, el soporte y dominio incluidos, los posibles costos futuros de terceros y su responsabilidad como organizador.', {style:'bold', color:[31, 113, 69], after:5});
 
       subtitulo('Firma electrónica trazada');
       texto(`Firmante: ${datos.nombre} - ${datos.documento}`, {style:'bold'});
@@ -1125,14 +1146,20 @@
 
       subtitulo('Condiciones principales aceptadas');
       const condiciones = [
-        'El comprador solicita la configuración y licencia de uso de una página web de bingo.',
+        'El comprador solicita la configuración y licencia de uso de un sistema dinámico de reserva y administración de cartones de bingo.',
         'La contratación no transfiere el código fuente ni la infraestructura técnica, salvo acuerdo escrito diferente.',
         `Plan seleccionado: ${datos.planDetalle}.`,
         'En el plan financiado, las doce (12) cuotas son quincenales.',
         'Ambos planes incluyen como obsequio un archivo Excel de bingo manual y automático.',
         'Los pagos en bolívares se calculan a la tasa BCV vigente al momento del pago.',
-        'El incumplimiento del calendario podrá causar la pausa de la página hasta regularizar la deuda.',
-        'Los pagos realizados no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable.',
+        'El incumplimiento del calendario podrá causar la pausa de la página hasta regularizar todos los montos vencidos.',
+        'Los pagos realizados no son reembolsables una vez iniciado el servicio, salvo obligación legal aplicable, incumplimiento atribuible al prestador o acuerdo escrito entre las partes.',
+        'El sistema utiliza Supabase como proveedor externo de base de datos, almacenamiento, autenticación y otras funciones técnicas.',
+        'Con tráfico bajo o moderado es poco probable que se requiera Supabase Pro; un tráfico considerable, muchas conexiones simultáneas, alto almacenamiento o transferencia de datos pueden hacer necesario un plan de pago.',
+        'Supabase Pro comienza actualmente desde $25 mensuales, sujeto a cambios del proveedor. El cambio no es automático, requiere información y autorización previa, y su costo no está incluido en la contratación.',
+        'Los mantenimientos, interrupciones, fallas o pausas por inactividad atribuibles a Supabase u otros proveedores pueden afectar temporalmente el sistema hasta que el servicio sea restablecido o reanudado.',
+        'La contratación incluye un mes de soporte técnico desde la activación o entrega. Las funciones nuevas, rediseños, carga masiva y soporte posterior pueden cotizarse por separado.',
+        'La contratación incluye un dominio estándar .com durante el primer año, sujeto a disponibilidad. La renovación posterior y los dominios premium no están incluidos.',
         'El comprador, como organizador, asume el 100% de la responsabilidad operativa y económica frente a jugadores y terceros por premios, pagos a ganadores, cobros, devoluciones, resultados, publicidad, permisos, impuestos y cumplimiento legal.',
         'Goldenpro.Ven suministra la herramienta tecnológica; no organiza el bingo, no recibe el dinero de jugadores ni entrega premios, sin excluir responsabilidades propias que legalmente no puedan renunciarse.',
         'La firma gráfica, las confirmaciones, la constancia, los correos y los mensajes expresan aceptación electrónica previa al pago; no equivalen automáticamente a una firma electrónica certificada.'
@@ -1183,7 +1210,7 @@
 
     function abrirWhatsApp(datos, ventanaWhatsApp) {
       const mensaje = [
-        'Hola, deseo contratar la página web de bingo.',
+        'Hola, deseo contratar el sistema dinámico de reserva y administración de cartones de bingo.',
         '',
         `Nombre: ${datos.nombre}`,
         `Cédula/RIF: ${datos.documento}`,
@@ -1191,7 +1218,9 @@
         `Correo: ${datos.correo}`,
         `Plan elegido: ${datos.planTitulo}`,
         `Condición: ${datos.planDetalle}`,
+        'Incluye un mes de soporte técnico y un dominio estándar .com durante el primer año, sujeto a disponibilidad.',
         'Obsequio incluido: archivo Excel de bingo manual y automático para completar el juego de manera profesional.',
+        'Fui informado sobre el uso de Supabase, sus posibles mantenimientos o límites y que cualquier plan de pago requiere autorización previa y no está incluido.',
         `Código de aceptación: ${datos.codigo}`,
         `Huella SHA-256: ${datos.huella}`,
         '',
